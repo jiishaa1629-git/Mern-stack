@@ -96,4 +96,5 @@ Section 5 — Integrated Challenge (Covers Everything)
 ● Uses control statements
 ● Uses operators
 ● Stores result in variables
+
 ● Prints final output
