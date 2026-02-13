@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="UTF-8">
+    <style>
+    :root {
+    --bg-main: #121212;
+    --bg-card: #1e1e1e;
+    --bg-input: #2d2d2d;
+    --text-main: #e0e0e0;
+    --text-muted: #a0a0a0;
+    --accent-color: #bb86fc;
+    /* Mild Purple */
+    --accent-hover: #3700b3;
+    --accent-secondary: #03dac6;
+    /* Soft Teal */
+    --border-color: #333;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* --- BASE & TYPOGRAPHY --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* Box Model requirement */
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    /* Typography */
+    letter-spacing: 0.5px;
+}
+
+/* --- HEADER (HERO) --- */
+header {
+    background: linear-gradient(135deg, #1f1c2c, #928dab);
+    /* Mild Gradient */
+    padding: 60px 20px;
+    text-align: center;
+    border-bottom: 2px solid var(--accent-color);
+}
+
+header h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    /* Typography: Text Shadow */
+}
+
+/* Descendant Selector */
+header p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto;
+    color: #fff;
+}
+
+/* Pseudo-element: ::first-letter on Header paragraph */
+header p::first-letter {
+    font-size: 150%;
+    color: var(--accent-secondary);
+    font-weight: bold;
+}
+
+mark {
+    background-color: var(--accent-color);
+    color: #000;
+    padding: 0 5px;
+    border-radius: 4px;
+}
+
+/* --- NAVIGATION (Sticky & Flexbox) --- */
+nav {
+    background-color: rgba(30, 30, 30, 0.95);
+    /* Semi-transparent */
+    backdrop-filter: blur(10px);
+    position: sticky;
+                 display: flex;
+    justify-content: center;
+    flex-direction: row;
+    gap: 20px;
+
+    /* Glassmorphism */
+    animation: center;
+    /* Positioning: Sticky requirement */
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow);
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+nav h2 {
+    display: none;
+    /* Hide the "Navigation" text for cleaner look */
+}
+
+nav ul {
+    display: flex;
+    /* Flexbox requirement 1/2 */
+    justify-content: center;
+    list-style: none;
+    gap: 30px;
+}
+
+nav li {
+    position: relative;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--text-main);
+    font-weight: 500;
+    text-transform: uppercase;
+    /* Typography */
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+/* Pseudo-class: :hover & :focus */
+nav a:hover,
+nav a:focus {
+    color: var(--accent-color);
+    outline: none;
+}
+
+/* Pseudo-element: ::after (Animated Underline) */
+nav a::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: var(--accent-secondary);
+    transition: width 0.3s;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+/* --- SECTIONS (Shared Styling) --- */
+section {
+    padding: 60px 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--border-color);
+}
+
+section h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: var(--accent-secondary);
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+    /* Positioning trick */
+}
+
+/* --- ABOUT SECTION (Overflow Demo) --- */
+/* We simulate overflow demo here since we can't add classes */
+#about article {
+    background-color: var(--bg-card);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    max-height: 150px;
+    /* Constrain height */
+    overflow-y: auto;
+    /* Overflow: Auto requirement */
+    border: 1px solid var(--border-color);
+}
+
+/* Custom Scrollbar for Webkit */
+#about article::-webkit-scrollbar {
+    width: 8px;
+}
+
+#about article::-webkit-scrollbar-thumb {
+    background-color: var(--accent-color);
+    border-radius: 4px;
+}
+
+details {
+    margin-top: 20px;
+    background-color: var(--bg-input);
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+summary {
+    font-weight: bold;
+    color: var(--accent-color);
+}
+
+/* --- SKILLS SECTION --- */
+/* Child Combinator */
+#skills>h3 {
+    margin-top: 30px;
+    margin-bottom: 15px;
+    color: var(--text-muted);
+    border-left: 4px solid var(--accent-color);
+    padding-left: 10px;
+}
+
+ol,
+ul {
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+li {
+    margin-bottom: 5px;
+}
+
+/* Pseudo-class: :nth-child (Striped effect on lists) */
+#skills ul li:nth-child(odd) {
+    color: var(--accent-secondary);
+}
+
+label {
+    display: inline-block;
+    width: 120px;
+    font-weight: bold;
+}
+
+progress {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 60%;
+    height: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+progress::-webkit-progress-bar {
+    background-color: var(--bg-input);
+}
+
+progress::-webkit-progress-value {
+    background-color: var(--accent-color);
+    transition: width 0.5s ease;
+}
+
+/* --- ACADEMICS (Tables) --- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--bg-card);
+    border-radius: 8px;
+    overflow: hidden;
+    /* Rounded corners fix */
+    box-shadow: var(--shadow);
+}
+
+caption {
+    margin-bottom: 10px;
+    font-style: italic;
+    color: var(--text-muted);
+}
+
+th,
+td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    background-color: #252525;
+    color: var(--accent-secondary);
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    /* Highlight row on hover */
+}
+
+/* --- MEDIA SECTION (Flexbox Row for Figures) --- */
+#media {
+    display: flex;
+    /* Flexbox requirement 2/2 */
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Ensure section usually block, but here acting as flex container. 
+   Wait! The `h2` is a direct child of section. Flexbox on the section 
+   will make the H2 a flex item side-by-side with figures. 
+   We need to fix this layout without changing HTML. 
+   
+   Solution: Make the section display block (default), but maybe float figures?
+   Or use `section#media > figure` to style them, but we want a grid.
+   
+   Actually, strict Flexbox requirement on `projects` usually implies a container div.
+   Here we don't have one.
+   
+   Alternative:
+   section#media { display: flex; flex-direction: column; align-items: center; }
+   But then figures are minimal.
+   
+   Let's try this:
+   We can't easily group figures without a div.
+   So we will leave section block, and make figures inline-block or just use flexbox on the SECTION
+   and set h2 to width 100%? Yes.
+*/
+#media {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+#media h2 {
+    width: 100%;
+    /* Force heading to break to new line */
+    flex-basis: 100%;
+}
+
+figure {
+    background-color: var(--bg-card);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    max-width: 300px;
+    /* Transition for Hover Scale */
+    transition: transform 0.3s ease;
+}
+
+figure:hover {
+    transform: scale(1.05);
+    /* Hover Scale Effect */
+    border: 1px solid var(--accent-color);
+}
+
+figcaption {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* --- CONTACT SECTION (Form) --- */
+form {
+    background-color: var(--bg-card);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+}
+
+/* Attribute Selectors */
+input[type="text"],
+input[type="email"],
+select {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    color: white;
+}
+
+/* State: Focus */
+input:focus,
+select:focus {
+    outline: 2px solid var(--accent-color);
+    border-color: transparent;
+}
+
+fieldset {
+    border: 1px solid var(--border-color);
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+legend {
+    padding: 0 10px;
+    color: var(--accent-secondary);
+}
+
+input[type="submit"] {
+    background-color: var(--accent-color);
+    color: black;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background-color 0.3s, transform 0.2s;
+    display: block;
+    width: 100%;
+}
+
+input[type="submit"]:hover {
+    background-color: var(--accent-hover);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* --- FOOTER --- */
+footer {
+    text-align: center;
+    padding: 40px;
+    background-color: #000;
+    color: #666;
+    margin-top: 50px;
+    border-top: 1px solid var(--border-color);
+}
+
+/* --- RESPONSIVE MEDIA QUERY --- */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    /* Change Flex Direction of Nav */
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    section {
+        padding: 40px 15px;
+    }
+
+    form {
+        padding: 20px;
+    }
+}
+</style>
+<title>Jisha J - Personal Portfolio</title>
+</head>
+
+<body>
+
+    <header>
+        <h1>Jisha J</h1>
+        <p>
+            Hello! I am <b><mark>JISHA J</mark></b>,a <i>college student</i> who is passionated about <u>technology</u>
+            and <s>giving up easily</s>
+            I believe in <sup>continous</sup>learning and <sub>self growth</sub>
+        </p>
+    </header>
+<center>
+    <table cellpadding="10">
+        <h2>Navigation</h2>
+        <tr>
+            <td><a href="#about">About Me</b></a></td>
+            <td><a href="#skills">Skills</b></a></td>
+            <td><a href="#academics">Academics</b></a></td>
+            <td><a href="#media">Media</b></a></td>
+            <td><a href="#contact">Contact</b></a></td>
+            </tr>
+            </table>
+    </nav>
+    </center>
+
+    <section id="about">
+        <h2>About Me</h2>
+
+        <article>
+            <h3>Personal Bio</h3>
+            <p>
+                I am currently pursuing <mark>BTECH CSE </mark> and working on improving my technical
+                and communication skills. My goal is to become a confident and skilled
+                professional in the IT field...
+            </p>
+        </article>
+
+        <details>
+            <summary>More About Me</summary>
+            <p>
+                I enjoy learning new concepts, practicing coding, and managing my time
+                efficiently as a student.
+            </p>
+        </details>
+    </section>
+
+    <section id="skills">
+        <h2>Skills & Interests</h2>
+
+        <h3>Technical Skills (Ordered List)</h3>
+        <ol>
+            <li>HTML</li>
+            <li>Basic Programming</li>
+            <li>Problem Solving</li>
+            <li>power BI</li>
+        </ol>
+
+        <h3>Hobbies (Unordered List)</h3>
+        <ul>
+            <li>Reading</li>
+            <li>Listening to Music</li>
+            <li>Learning New Things</li>
+            <li>Dancing</li>
+        </ul>
+
+        <h3>Skill Levels</h3>
+
+        <label for="htmlSkill">HTML:</label>
+        <progress id="htmlSkill" value="70" max="100">80%</progress><br><br>
+
+        <label for="codingSkill">Coding:</label>
+        <progress id="codingSkill" value="65" max="100">65%</progress><br><br>
+
+        <label for="communicationSkill">Communication:</label>
+        <progress id="communicationSkill" value="70" max="100">70%</progress>
+    </section>
+
+    <section id="academics">
+        <h2>Academic Performance</h2>
+
+        <table border="1">
+            <caption>Semester Marks</caption>
+            <tr>
+                <th>semester</th>
+                <th>CGPA</th>
+            </tr>
+            <tr>
+                <td>SEM 1</td>
+                <td>8.83</td>
+
+            </tr>
+            <tr>
+                <td>SEM 2</td>
+                <td>8.35</td>
+            </tr>
+            <tr>
+                <td>SEM 3</td>
+                <td>8.83</td>
+            </tr>
+            <tr>
+                <td>SEM 4</td>
+                <td>8.85</td>
+            </tr>
+
+        </table>
+    </section>
+
+    <section id="media">
+        <h2>Media Section</h2>
+
+        <figure>
+            <img src="c:\Users\ThinkPad\Downloads\WhatsApp Image 2026-02-10 at 7.37.15 PM.jpeg"
+                alt="IMAGE YOU MIGHT LIKE..." width="200">
+            <figcaption>BLESSED...</figcaption>
+            <p>If the image is not supported, this text will be shown.</p>
+        </figure>
+
+        <figure>
+            <audio controls>
+                <source src="c:\Users\ThinkPad\Downloads\WhatsApp Audio 2026-02-11 at 2.56.27 PM.mpeg"
+                    type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <figcaption>AUDIO THAT MOTIVATED ME...</figcaption>
+        </figure>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Me</h2>
+
+        <form>
+            <p>
+                <label for="name">Name:</label><br>
+                <input type="text" id="name" name="name">
+            </p>
+
+            <p>
+                <label for="email">Email:</label><br>
+                <input type="email" id="email" name="email">
+            </p>
+
+            <p>
+            <fieldset>
+                <legend> Gender:</legend>
+                <label>
+                    <input type="radio" name="gender" value="female"> Female
+                </label><br>
+                <label>
+                    <input type="radio" name="gender" value="male"> Male
+                </label>
+            </fieldset>
+            </p>
+
+
+            </p>
+
+            <p>
+                <label for="contactMethod">Preferred Contact Method:</label><br>
+                <select id="contactMethod" name="contactMethod">
+                    <option>Email</option>
+                    <option>Phone</option>
+                    <option>WhatsApp</option>
+                </select>
+            </p>
+
+            <p>
+                <input type="submit" value="Submit">
+            </p>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Jisha J. All rights reserved.</p>
+    </footer>
+
+</body>
+
+</html>
