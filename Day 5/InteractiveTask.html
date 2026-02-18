@@ -1,0 +1,288 @@
+
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<title>DOM Practice - Notes</title>
+
+<style>
+:root{
+  --bg:#f8f9fa; --text:#212529; --card:white; --border:#dee2e6;
+  --primary:#0d6efd; --danger:#dc3545; --success:#198754;
+}
+[data-theme="dark"]{
+  --bg:#212529; --text:#e9ecef; --card:#343a40; --border:#495057;
+  --primary:#6ea8fe; --danger:#ff6b6b; --success:#51cf66;
+}
+body{
+  font-family:system-ui;
+  background:var(--bg);
+  color:var(--text);
+  padding:20px;
+  min-height:100vh;
+}
+.container{max-width:700px;margin:auto;}
+header{text-align:center;margin-bottom:20px;}
+#theme-toggle{
+  padding:8px 16px;background:var(--primary);
+  color:white;border:none;border-radius:6px;cursor:pointer;
+}
+form{display:flex;gap:10px;margin-bottom:15px;}
+#note-input{
+  flex:1;padding:12px;font-size:1rem;
+  border:1px solid var(--border);border-radius:6px;
+  background:var(--card);color:var(--text);
+}
+#add-btn{
+  padding:12px 20px;background:var(--primary);
+  color:white;border:none;border-radius:6px;cursor:pointer;
+}
+#search{
+  width:100%;padding:10px;margin-bottom:15px;
+  border:1px solid var(--border);border-radius:6px;
+  background:var(--card);color:var(--text);
+}
+#notes-list{list-style:none;display:grid;gap:12px;padding:0;}
+.note{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:16px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  cursor:grab;
+}
+.note.completed .text{
+  text-decoration:line-through;
+  opacity:0.6;
+}
+.note.dragging{
+  opacity:0.4;
+}
+.actions{
+  display:flex;
+  gap:10px;
+  justify-content:flex-end;
+}
+.btn{
+  padding:6px 12px;border:none;border-radius:4px;cursor:pointer;
+}
+.btn-complete{background:var(--success);color:white;}
+.btn-delete{background:var(--danger);color:white;}
+.color-picker{width:32px;height:32px;border:none;cursor:pointer;}
+
+#modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.5);
+  justify-content:center;
+  align-items:center;
+}
+.modal-box{
+  background:var(--card);
+  padding:24px;
+  border-radius:12px;
+  width:90%;
+  max-width:400px;
+  text-align:center;
+}
+.modal-buttons{
+  margin-top:20px;
+  display:flex;
+  gap:12px;
+  justify-content:center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+<h1>Notes Manager</h1>
+<button id="theme-toggle">Dark Mode</button>
+</header>
+
+<form id="note-form">
+<input id="note-input" placeholder="Type your note..." required>
+<button id="add-btn">Add</button>
+</form>
+
+<input id="search" placeholder="Search notes...">
+
+<ul id="notes-list"></ul>
+
+<button id="clear-completed"
+style="margin-top:20px;background:var(--danger);
+color:white;padding:10px 20px;border:none;border-radius:6px;cursor:pointer;">
+Clear Completed
+</button>
+
+</div>
+
+<div id="modal">
+<div class="modal-box">
+<h2>Clear all completed notes?</h2>
+<div class="modal-buttons">
+<button id="modal-no" class="btn" style="background:#6c757d;color:white;">No</button>
+<button id="modal-yes" class="btn" style="background:var(--danger);color:white;">Yes</button>
+</div>
+</div>
+</div>
+
+<script>
+const form=document.getElementById("note-form");
+const input=document.getElementById("note-input");
+const notesList=document.getElementById("notes-list");
+const search=document.getElementById("search");
+const themeToggle=document.getElementById("theme-toggle");
+const clearBtn=document.getElementById("clear-completed");
+const modal=document.getElementById("modal");
+const modalYes=document.getElementById("modal-yes");
+const modalNo=document.getElementById("modal-no");
+
+function createNote(text){
+  const li=document.createElement("li");
+  li.className="note";
+  li.draggable=true;
+
+  li.innerHTML=`
+    <span class="text">${text}</span>
+    <div class="actions">
+      <button class="btn btn-complete">Complete</button>
+      <button class="btn btn-delete">Delete</button>
+      <input type="color" class="color-picker">
+    </div>
+  `;
+  notesList.appendChild(li);
+}
+
+form.addEventListener("submit",e=>{
+  e.preventDefault();
+  const value=input.value.trim();
+  if(!value)return;
+  createNote(value);
+  input.value="";
+});
+
+notesList.addEventListener("click",e=>{
+  const note=e.target.closest(".note");
+  if(!note)return;
+
+  if(e.target.classList.contains("btn-delete")){
+    note.remove();
+  }
+
+  if(e.target.classList.contains("btn-complete")){
+    note.classList.toggle("completed");
+  }
+});
+
+notesList.addEventListener("change",e=>{
+  if(e.target.classList.contains("color-picker")){
+    e.target.closest(".note").style.backgroundColor=e.target.value;
+  }
+});
+
+notesList.addEventListener("dblclick",e=>{
+  if(!e.target.classList.contains("text"))return;
+
+  const span=e.target;
+  const inputEdit=document.createElement("input");
+  inputEdit.type="text";
+  inputEdit.value=span.textContent;
+  span.replaceWith(inputEdit);
+  inputEdit.focus();
+
+  inputEdit.addEventListener("keydown",ev=>{
+    if(ev.key==="Enter"){
+      const newSpan=document.createElement("span");
+      newSpan.className="text";
+      newSpan.textContent=inputEdit.value;
+      inputEdit.replaceWith(newSpan);
+    }
+  });
+});
+
+let dragged=null;
+
+notesList.addEventListener("dragstart",e=>{
+  if(e.target.classList.contains("note")){
+    dragged=e.target;
+    e.target.classList.add("dragging");
+  }
+});
+
+notesList.addEventListener("dragend",e=>{
+  if(e.target.classList.contains("note")){
+    e.target.classList.remove("dragging");
+  }
+});
+
+notesList.addEventListener("dragover",e=>{
+  e.preventDefault();
+  const after=getDragAfterElement(notesList,e.clientY);
+  if(after==null){
+    notesList.appendChild(dragged);
+  }else{
+    notesList.insertBefore(dragged,after);
+  }
+});
+
+function getDragAfterElement(container,y){
+  const elements=[...container.querySelectorAll(".note:not(.dragging)")];
+  return elements.reduce((closest,child)=>{
+    const box=child.getBoundingClientRect();
+    const offset=y-box.top-box.height/2;
+    if(offset<0&&offset>closest.offset){
+      return{offset:offset,element:child};
+    }else{
+      return closest;
+    }
+  },{offset:Number.NEGATIVE_INFINITY}).element;
+}
+
+search.addEventListener("input",()=>{
+  const value=search.value.toLowerCase();
+  document.querySelectorAll(".note").forEach(note=>{
+    const text=note.querySelector(".text").textContent.toLowerCase();
+    note.style.display=text.includes(value)?"flex":"none";
+  });
+});
+
+themeToggle.addEventListener("click",()=>{
+  const html=document.documentElement;
+  const theme=html.getAttribute("data-theme");
+  if(theme==="light"){
+    html.setAttribute("data-theme","dark");
+    themeToggle.textContent="Light Mode";
+  }else{
+    html.setAttribute("data-theme","light");
+    themeToggle.textContent="Dark Mode";
+  }
+});
+
+clearBtn.addEventListener("click",()=>{
+  modal.style.display="flex";
+});
+
+modalNo.addEventListener("click",()=>{
+  modal.style.display="none";
+});
+
+modal.addEventListener("click",e=>{
+  if(e.target===modal)modal.style.display="none";
+});
+
+modalYes.addEventListener("click",()=>{
+  document.querySelectorAll(".note.completed").forEach(n=>n.remove());
+  modal.style.display="none";
+});
+</script>
+
+</body>
+</html>
+

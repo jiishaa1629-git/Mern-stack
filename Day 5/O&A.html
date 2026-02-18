@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Practice Operations</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    section { margin-bottom: 25px; padding: 15px; border: 1px solid #ccc; }
+    input, textarea { width: 100%; margin: 5px 0; padding: 5px; }
+    button { padding: 6px 12px; margin-top: 5px; cursor: pointer; }
+    .output { margin-top: 8px; color: green; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<h1>JavaScript Practice Operations</h1>
+
+<!-- 1 -->
+<section>
+  <h3>1️⃣ getUserInitials</h3>
+  <input id="firstName" placeholder="First Name">
+  <input id="lastName" placeholder="Last Name">
+  <button onclick="handleInitials()">Get Initials</button>
+  <div class="output" id="output1"></div>
+</section>
+
+<!-- 2 -->
+<section>
+  <h3>2️⃣ countProperties</h3>
+  <textarea id="objInput" placeholder='Enter object (e.g. {"a":1,"b":2})'></textarea>
+  <button onclick="handleCountProperties()">Count</button>
+  <div class="output" id="output2"></div>
+</section>
+
+<!-- 3 -->
+<section>
+  <h3>3️⃣ invertObject</h3>
+  <textarea id="invertInput" placeholder='{"a":1,"b":2}'></textarea>
+  <button onclick="handleInvert()">Invert</button>
+  <div class="output" id="output3"></div>
+</section>
+
+<!-- 4 -->
+<section>
+  <h3>4️⃣ removeFalsyValues</h3>
+  <input id="falsyInput" placeholder="Enter array (e.g. [0,1,false,2,'',3])">
+  <button onclick="handleFalsy()">Remove</button>
+  <div class="output" id="output4"></div>
+</section>
+
+<!-- 5 -->
+<section>
+  <h3>5️⃣ findMostFrequentElement</h3>
+  <input id="freqInput" placeholder="Enter array (e.g. [1,2,2,3,3,3])">
+  <button onclick="handleFrequency()">Find</button>
+  <div class="output" id="output5"></div>
+</section>
+
+<!-- 6 -->
+<section>
+  <h3>6️⃣ flatten Array</h3>
+  <input id="flatInput" placeholder="Enter nested array (e.g. [1,[2,3],[4,[5]]] )">
+  <button onclick="handleFlatten()">Flatten</button>
+  <div class="output" id="output6"></div>
+</section>
+
+<!-- 7 -->
+<section>
+  <h3>7️⃣ rotateArray</h3>
+  <input id="rotateInput" placeholder="Array (e.g. [1,2,3,4,5])">
+  <input id="rotateK" placeholder="Rotate by k">
+  <button onclick="handleRotate()">Rotate</button>
+  <div class="output" id="output7"></div>
+</section>
+
+<!-- 8 -->
+<section>
+  <h3>8️⃣ intersection</h3>
+  <input id="int1" placeholder="[1,2,2,3]">
+  <input id="int2" placeholder="[2,3,4]">
+  <button onclick="handleIntersection()">Intersect</button>
+  <div class="output" id="output8"></div>
+</section>
+
+<!-- 9 -->
+<section>
+  <h3>9️⃣ groupAnagrams</h3>
+  <input id="anaInput" placeholder='["eat","tea","tan","ate","nat","bat"]'>
+  <button onclick="handleAnagrams()">Group</button>
+  <div class="output" id="output9"></div>
+</section>
+
+<!-- 10 -->
+<section>
+  <h3>🔟 longestConsecutiveSequence</h3>
+  <input id="longInput" placeholder="[100,4,200,1,3,2]">
+  <button onclick="handleLongest()">Find</button>
+  <div class="output" id="output10"></div>
+</section>
+
+<script src="script.js"></script>
+
+<script>
+  function handleInitials() {
+    const first = document.getElementById("firstName").value;
+    const last = document.getElementById("lastName").value;
+    document.getElementById("output1").innerText =
+      getUserInitials({ firstName: first, lastName: last });
+  }
+
+  function handleCountProperties() {
+    const obj = JSON.parse(document.getElementById("objInput").value);
+    document.getElementById("output2").innerText =
+      countProperties(obj);
+  }
+
+  function handleInvert() {
+    const obj = JSON.parse(document.getElementById("invertInput").value);
+    document.getElementById("output3").innerText =
+      JSON.stringify(invertObject(obj));
+  }
+
+  function handleFalsy() {
+    const arr = eval(document.getElementById("falsyInput").value);
+    document.getElementById("output4").innerText =
+      JSON.stringify(removeFalsyValues(arr));
+  }
+
+  function handleFrequency() {
+    const arr = eval(document.getElementById("freqInput").value);
+    document.getElementById("output5").innerText =
+      findMostFrequentElement(arr);
+  }
+
+  function handleFlatten() {
+    const arr = eval(document.getElementById("flatInput").value);
+    document.getElementById("output6").innerText =
+      JSON.stringify(flatten(arr));
+  }
+
+  function handleRotate() {
+    const arr = eval(document.getElementById("rotateInput").value);
+    const k = parseInt(document.getElementById("rotateK").value);
+    document.getElementById("output7").innerText =
+      JSON.stringify(rotateArray(arr, k));
+  }
+
+  function handleIntersection() {
+    const arr1 = eval(document.getElementById("int1").value);
+    const arr2 = eval(document.getElementById("int2").value);
+    document.getElementById("output8").innerText =
+      JSON.stringify(intersection(arr1, arr2));
+  }
+
+  function handleAnagrams() {
+    const arr = JSON.parse(document.getElementById("anaInput").value);
+    document.getElementById("output9").innerText =
+      JSON.stringify(groupAnagrams(arr));
+  }
+
+  function handleLongest() {
+    const arr = eval(document.getElementById("longInput").value);
+    document.getElementById("output10").innerText =
+      longestConsecutiveSequence(arr);
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DOM Tasks</title>
+    <style>
+        .highlight{ background:yellow }
+        .dark-mode{ background:#111; color:white }
+        .modal-overlay{
+            position:fixed; inset:0; background:rgba(0,0,0,.5);
+            display:flex; justify-content:center; align-items:center;
+        }
+        .modal{ background:white; padding:20px; border-radius:10px }
+        .swatch{ width:40px;height:40px;display:inline-block;cursor:pointer }
+    </style>
+</head>
+<body>
+
+<h1 id="header-title">Old Title</h1>
+<script src="DOM&EVENTS.js"></script>
+
+<div class="product-card">Product 1</div>
+<div class="product-card">Product 2</div>
+
+<ul class="menu">
+<li>Home</li>
+<li>About</li>
+</ul>
+
+<div id="controls"></div>
+
+<div id="cart"></div>
+
+<img class="avatar" width="100">
+
+<div class="article-body">
+<p>para 1</p>
+<p>para 2</p>
+<div><p>nested (should not highlight)</p></div>
+</div>
+
+<button id="theme-toggle">Toggle Theme</button>
+
+<div class="card"><button data-action="delete">Delete Card</button></div>
+
+<input id="todo-input"><button id="add-todo">Add</button>
+<ul id="todo-list"></ul>
+
+<ul id="users-list">
+<li data-user-id="1">John</li>
+<li data-user-id="2">Mary</li>
+</ul>
+
+<span id="count">0</span>
+<button id="plus">+1</button>
+<button id="minus">-1</button>
+
+<input id="search" placeholder="Search country">
+<ul id="countries">
+<li class="country">India</li>
+<li class="country">Canada</li>
+<li class="country">Japan</li>
+</ul>
+
+<div class="swatch" data-color="#e74c3c" style="background:#e74c3c"></div>
+<div class="swatch" data-color="#3498db" style="background:#3498db"></div>
+<div class="swatch" data-color="#2ecc71" style="background:#2ecc71"></div>
+
+<ul id="sortable">
+<li draggable="true">A</li>
+<li draggable="true">B</li>
+<li draggable="true">C</li>
+</ul>
+
+<button id="open-modal">Open Modal</button>
+
+<script src="script.js"></script>
+</body>
+</html>
