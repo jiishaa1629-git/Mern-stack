@@ -1,0 +1,27 @@
+.home {
+  text-align: center;
+}
+
+.home h2 {
+  margin: 15px 0;
+  color: #ccc;
+}
+
+.home p {
+  max-width: 600px;
+  margin: 20px auto;
+  color: #aaa;
+}
+
+.primary-btn {
+  background: #ff6b4a;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 25px;
+  color: white;
+  transition: 0.3s;
+}
+
+.primary-btn:hover {
+  transform: scale(1.05);
+}

@@ -1,0 +1,25 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: #070d1f;
+  color: white;
+}
+
+section {
+  padding: 100px 10%;
+}
+
+h2 {
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 50px;
+}
+
+.orange {
+  color: #ff6b4a;
+}
