@@ -1,0 +1,114 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background: #0f0f0f;
+    color: white;
+}
+
+/* Center layout */
+.navbar,
+.hero,
+.products,
+footer {
+    max-width: 1400px;
+    margin: auto;
+    padding: 20px 40px;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: black;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+    background: linear-gradient(45deg,#ff4da6,#ff66cc);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+nav a {
+    margin-left: 30px;
+    text-decoration: none;
+    color: white;
+}
+
+nav a:hover {
+    color: #ff4da6;
+}
+
+/* Hero */
+.hero {
+    text-align: center;
+    padding: 80px 20px;
+    background: linear-gradient(to right,#000,#1a1a1a);
+    border-radius: 20px;
+    margin-top: 30px;
+}
+
+.hero h1 {
+    font-size: 55px;
+}
+
+/* Products */
+.products {
+    margin-top: 60px;
+}
+
+.products h2 {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.card {
+    background: #1a1a1a;
+    padding: 20px;
+    border-radius: 20px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 15px;
+    margin-bottom: 15px;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(255,77,166,0.3);
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(45deg,#ff4da6,#ff66cc);
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+footer {
+    text-align: center;
+    margin-top: 60px;
+    padding: 30px;
+    background: black;
+}
