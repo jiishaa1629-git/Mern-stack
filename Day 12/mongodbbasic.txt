@@ -1,0 +1,199 @@
+===============================
+MONGODB BASIC FUNCTIONS
+Example: Students Database
+===============================
+
+1️⃣ SHOW DATABASES
+-------------------
+show dbs
+
+2️⃣ CREATE / SWITCH DATABASE
+-----------------------------
+use studentsDB
+
+3️⃣ SHOW COLLECTIONS
+---------------------
+show collections
+
+
+====================================
+CREATE (INSERT DOCUMENTS)
+====================================
+
+Insert One Student:
+-------------------
+db.students.insertOne({
+  name: "Jisha",
+  age: 20,
+  department: "Computer Science",
+  marks: 85,
+  city: "Chennai"
+})
+
+Insert Multiple Students:
+--------------------------
+db.students.insertMany([
+  {
+    name: "Arun",
+    age: 22,
+    department: "IT",
+    marks: 78,
+    city: "Coimbatore"
+  },
+  {
+    name: "Priya",
+    age: 21,
+    department: "ECE",
+    marks: 92,
+    city: "Madurai"
+  },
+  {
+    name: "Rahul",
+    age: 23,
+    department: "Mechanical",
+    marks: 67,
+    city: "Salem"
+  }
+])
+
+
+====================================
+READ (FIND DOCUMENTS)
+====================================
+
+Find All Students:
+-------------------
+db.students.find()
+
+Find One Student:
+-------------------
+db.students.findOne({ name: "Jisha" })
+
+Find Students with Marks Greater Than 80:
+-----------------------------------------
+db.students.find({ marks: { $gt: 80 } })
+
+Find Students from Chennai:
+----------------------------
+db.students.find({ city: "Chennai" })
+
+Find Students Between Marks 70 and 90:
+---------------------------------------
+db.students.find({
+  marks: { $gte: 70, $lte: 90 }
+})
+
+Find Students Not From Chennai:
+--------------------------------
+db.students.find({ city: { $ne: "Chennai" } })
+
+Find Students in Specific Cities:
+-----------------------------------
+db.students.find({
+  city: { $in: ["Chennai", "Madurai"] }
+})
+
+
+====================================
+UPDATE (MODIFY DOCUMENTS)
+====================================
+
+Update One Student:
+--------------------
+db.students.updateOne(
+  { name: "Rahul" },
+  { $set: { marks: 75 } }
+)
+
+Update Many Students:
+----------------------
+db.students.updateMany(
+  { department: "IT" },
+  { $set: { department: "Information Technology" } }
+)
+
+Increase Marks by 5:
+---------------------
+db.students.updateMany(
+  {},
+  { $inc: { marks: 5 } }
+)
+
+
+====================================
+DELETE (REMOVE DOCUMENTS)
+====================================
+
+Delete One Student:
+--------------------
+db.students.deleteOne({ name: "Arun" })
+
+Delete Students With Marks Less Than 70:
+-----------------------------------------
+db.students.deleteMany({ marks: { $lt: 70 } })
+
+
+====================================
+COUNT DOCUMENTS
+====================================
+
+Count All Students:
+--------------------
+db.students.countDocuments()
+
+Count Students in CS Department:
+----------------------------------
+db.students.countDocuments({ department: "Computer Science" })
+
+
+====================================
+SORTING
+====================================
+
+Sort by Marks Ascending:
+-------------------------
+db.students.find().sort({ marks: 1 })
+
+Sort by Marks Descending:
+--------------------------
+db.students.find().sort({ marks: -1 })
+
+
+====================================
+LIMIT RESULTS
+====================================
+
+Show Top 2 Students:
+---------------------
+db.students.find().sort({ marks: -1 }).limit(2)
+
+
+====================================
+DROP COLLECTION / DATABASE
+====================================
+
+Drop Collection:
+-----------------
+db.students.drop()
+
+Drop Database:
+---------------
+db.dropDatabase()
+
+
+====================================
+COMMON OPERATORS
+====================================
+
+$gt   → Greater than
+$lt   → Less than
+$gte  → Greater than or equal
+$lte  → Less than or equal
+$ne   → Not equal
+$in   → Match values in array
+$inc  → Increment value
+$set  → Update field value
+
+====================================
+END OF FILE
+====================================
